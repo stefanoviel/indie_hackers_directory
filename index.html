@@ -3,38 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indie makers and solopreneur X accounts | Find new ideas</title>
-    <meta name="description" content="Discover the best NextJS starters and boilerplates for solopreneurs, indie hackers, and self-starters. Ship your SaaS product fast with our curated collection.">
-    <meta name="keywords" content="solopreneur, indie hacker, solo entrepreneur, self starters, saas founders, indie hacking, nextjs, boilerplate">
-    <link rel="stylesheet" href="styles.css">
+    <title>Indie Makers and Solopreneur X Accounts | Connect with Innovators</title>
+    <meta name="description" content="Discover and connect with innovative indie makers and solopreneurs on X (formerly Twitter). Explore our curated list of creative minds and visionaries.">
+    <meta name="keywords" content="indie makers, solopreneurs, X accounts, Twitter, innovation, entrepreneurship, networking">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+        header {
+            margin-bottom: 60px;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 1.5em;
+            color: #ccc;
+            margin-bottom: 40px;
+        }
+        #filterInput {
+            width: 100%;
+            max-width: 600px;
+            padding: 15px;
+            font-size: 16px;
+            margin-bottom: 30px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #111;
+            color: #fff;
+        }
+        #directory {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .account {
+            background-color: #111;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .account img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .account-name {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .account-handle {
+            color: #1DA1F2;
+            text-decoration: none;
+        }
+        #seeMoreBtn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 15px 20px;
+            background-color: #1DA1F2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        #seeMoreBtn:hover {
+            background-color: #0c85d0;
+        }
+        #seeMoreBtn.hidden {
+            display: none;
+        }
+        #submitForm {
+            background-color: #111;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 50px auto;
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #submitForm h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        #submitForm input[type="text"],
+        #submitForm input[type="email"],
+        #submitForm input[type="url"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #222;
+            color: #fff;
+        }
+        #submitForm button {
+            background-color: #1DA1F2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #submitForm button:hover {
+            background-color: #0c85d0;
+        }
+        .made-by {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #ccc;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.2em;
+            }
+            #directory {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Indie makers and solopreneur X accounts</h1>
+            <h1>Indie Makers and Solopreneur X Accounts</h1>
             <h2>Discover and connect with innovative creators</h2>
         </header>
         
-        <input type="text" id="filterInput" placeholder="Search among 167 NextJS starters...">
+        <input type="text" id="filterInput" placeholder="Search among innovative creators...">
         
         <div id="directory"></div>
         
-        <a href="#" id="seeMoreBtn">SEE MORE</a>
+        <a href="#" id="seeMoreBtn">EXPLORE MORE</a>
         
         <div id="submitForm">
-            <h3>Submit your account if you are an indie hacker!</h3>
-            <p>Get more visibility for you account and grow your audience</p>
-            <input type="email" placeholder="Your email" required>
-            <input type="text" placeholder="Your twitter handle" required>
-            <input type="url" placeholder="Enter the public URL of your project" required>
-            <button type="submit">Submit Your Project →</button>
+            <h3>Join Our Innovative Community</h3>
+            <p>Share your journey and connect with fellow creators</p>
+            <form id="contactForm">
+                <input type="email" name="email" placeholder="Your email" required>
+                <input type="text" name="handle" placeholder="Your X handle" required>
+                <input type="url" name="url" placeholder="Your project or portfolio URL" required>
+                <button type="submit">Join the Community →</button>
+            </form>
         </div>
         
-        <p class="made-by">Made by @Stefan0Vl</p>
+        <p class="made-by">Curated with ❤️ by @Stefan0Vl</p>
     </div>
 
     <script>
         let accounts = [];
+        let displayedAccounts = 20;
 
         function loadAccounts() {
             fetch('indie_list.csv')
@@ -45,9 +188,10 @@
                         const [Name, ImageUrl, TwitterHandle] = row.split(',');
                         return { Name, ImageUrl, TwitterHandle };
                     }).filter(account => account.Name && account.TwitterHandle && account.ImageUrl);
-                    renderAccounts(accounts);
+                    renderAccounts(accounts.slice(0, displayedAccounts));
                     setupFilter();
                     updateSearchPlaceholder();
+                    setupSeeMoreButton();
                 })
                 .catch(error => console.error('Error:', error));
         }
@@ -74,18 +218,53 @@
                 const filteredAccounts = accounts.filter(account => 
                     account.Name.toLowerCase().includes(filterValue)
                 );
-                renderAccounts(filteredAccounts);
+                renderAccounts(filteredAccounts.slice(0, displayedAccounts));
+                updateSeeMoreButtonVisibility(filteredAccounts.length);
             });
         }
 
         function updateSearchPlaceholder() {
             const filterInput = document.getElementById('filterInput');
-            filterInput.placeholder = `Search among ${accounts.length} NextJS starters...`;
+            filterInput.placeholder = `Search among ${accounts.length} innovative creators...`;
         }
 
-        document.getElementById('seeMoreBtn').addEventListener('click', function(e) {
+        function setupSeeMoreButton() {
+            const seeMoreBtn = document.getElementById('seeMoreBtn');
+            seeMoreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                displayedAccounts = accounts.length;
+                renderAccounts(accounts);
+                this.classList.add('hidden');
+            });
+            updateSeeMoreButtonVisibility(accounts.length);
+        }
+
+        function updateSeeMoreButtonVisibility(totalAccounts) {
+            const seeMoreBtn = document.getElementById('seeMoreBtn');
+            if (totalAccounts > displayedAccounts) {
+                seeMoreBtn.classList.remove('hidden');
+            } else {
+                seeMoreBtn.classList.add('hidden');
+            }
+        }
+
+        // Setup form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('See More functionality to be implemented');
+            const formData = new FormData(this);
+            fetch('/submit-form', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Thank you for joining our community!');
+                this.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting your form. Please try again later.');
+            });
         });
 
         loadAccounts();

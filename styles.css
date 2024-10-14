@@ -1,0 +1,118 @@
+body { 
+    font-family: Arial, sans-serif; 
+    max-width: 100%;
+    margin: 0 auto; 
+    padding: 20px;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.2em;
+    color: #666;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+#filterInput {
+    width: 100%;
+    max-width: 600px;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#directory {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+    justify-content: center;
+}
+
+.account {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.account img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.account-info {
+    padding: 15px;
+}
+
+.account-name {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.account-handle {
+    color: #1DA1F2;
+    text-decoration: none;
+}
+
+.account-handle:hover {
+    text-decoration: underline;
+}
+
+#seeMoreBtn {
+    display: block;
+    width: 200px;
+    margin: 30px auto;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1em;
+    }
+
+    #directory {
+        grid-template-columns: 1fr;
+    }
+
+    .account {
+        max-width: 100%;
+    }
+}

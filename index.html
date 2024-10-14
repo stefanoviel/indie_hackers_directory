@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indie makers and soloprenuer accounts</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <title>Indie makers and solopreneur accounts</title>
     <style>
         body { 
             font-family: Arial, sans-serif; 
@@ -79,28 +78,33 @@
     </style>
 </head>
 <body>
-    <h1>Indie makers and soloprenuer accounts</h1>
+    <h1>Indie makers and solopreneur accounts</h1>
     <h2>Discover and connect with innovative creators</h2>
     <input type="text" id="filterInput" placeholder="Search by name">
     <div id="directory"></div>
     <a href="#" id="seeMoreBtn">SEE MORE</a>
-
+            
     <script>
-        const SHEET_ID = 'YOUR_GOOGLE_SHEET_ID';
-        const SHEET_NAME = 'Sheet1';
-        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${SHEET_NAME}`;
+        const API_KEY = 'AIzaSyAvN84RuWd7f4FD9EOBKJzLxlegYphw-6Q';
+        const SHEET_ID = '10S9bE8EnrLYU4qv9NM0sqq56w4MEhC7JOMhvHsSPLQg';
+        const RANGE = 'Sheet1!A:C';  // Adjust this to match your sheet's range
 
         let accounts = [];
 
-        Papa.parse(SHEET_URL, {
-            download: true,
-            header: true,
-            complete: function(results) {
-                accounts = results.data.filter(account => account.Name && account.TwitterHandle && account.ImageUrl);
-                renderAccounts(accounts);
-                setupFilter();
-            }
-        });
+        function loadAccounts() {
+            fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`)
+                .then(response => response.json())
+                .then(data => {
+                    accounts = data.values.slice(1).map(row => ({
+                        Name: row[0],
+                        TwitterHandle: row[1],
+                        ImageUrl: row[2]
+                    })).filter(account => account.Name && account.TwitterHandle && account.ImageUrl);
+                    renderAccounts(accounts);
+                    setupFilter();
+                })
+                .catch(error => console.error('Error:', error));
+        }
 
         function renderAccounts(accountsToRender) {
             const directory = document.getElementById('directory');
@@ -135,6 +139,9 @@
             // Implement your "See More" functionality here
             alert('See More functionality to be implemented');
         });
+
+        // Load accounts when the page loads
+        loadAccounts();
     </script>
 </body>
 </html>

@@ -3,16 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indie makers and solopreneur accounts</title>
+    <title>Indie makers and solopreneur X accounts | Find new ideas</title>
+    <meta name="description" content="Discover the best NextJS starters and boilerplates for solopreneurs, indie hackers, and self-starters. Ship your SaaS product fast with our curated collection.">
+    <meta name="keywords" content="solopreneur, indie hacker, solo entrepreneur, self starters, saas founders, indie hacking, nextjs, boilerplate">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Indie makers and solopreneur accounts</h1>
-    <h2>Discover and connect with innovative creators</h2>
-    <input type="text" id="filterInput" placeholder="Search by name">
-    <div id="directory"></div>
-    <a href="#" id="seeMoreBtn">SEE MORE</a>
-            
+    <div class="container">
+        <header>
+            <h1>Indie makers and solopreneur X accounts</h1>
+            <h2>Discover and connect with innovative creators</h2>
+        </header>
+        
+        <input type="text" id="filterInput" placeholder="Search among 167 NextJS starters...">
+        
+        <div id="directory"></div>
+        
+        <a href="#" id="seeMoreBtn">SEE MORE</a>
+        
+        <div id="submitForm">
+            <h3>Submit your account if you are an indie hacker!</h3>
+            <p>Get more visibility for you account and grow your audience</p>
+            <input type="email" placeholder="Your email" required>
+            <input type="text" placeholder="Your twitter handle" required>
+            <input type="url" placeholder="Enter the public URL of your project" required>
+            <button type="submit">Submit Your Project →</button>
+        </div>
+        
+        <p class="made-by">Made by @Stefan0Vl</p>
+    </div>
+
     <script>
         let accounts = [];
 
@@ -20,13 +40,14 @@
             fetch('indie_list.csv')
                 .then(response => response.text())
                 .then(data => {
-                    const rows = data.split('\n').slice(1); // Skip header row
+                    const rows = data.split('\n').slice(1);
                     accounts = rows.map(row => {
                         const [Name, ImageUrl, TwitterHandle] = row.split(',');
                         return { Name, ImageUrl, TwitterHandle };
                     }).filter(account => account.Name && account.TwitterHandle && account.ImageUrl);
                     renderAccounts(accounts);
                     setupFilter();
+                    updateSearchPlaceholder();
                 })
                 .catch(error => console.error('Error:', error));
         }
@@ -39,10 +60,8 @@
                 accountDiv.className = 'account';
                 accountDiv.innerHTML = `
                     <img src="${account.ImageUrl}" alt="${account.Name}">
-                    <div class="account-info">
-                        <div class="account-name">${account.Name}</div>
-                        <a href="${account.TwitterHandle}" target="_blank" class="account-handle">@${account.TwitterHandle.split('/').pop()}</a>
-                    </div>
+                    <div class="account-name">${account.Name}</div>
+                    <a href="${account.TwitterHandle}" target="_blank" class="account-handle">@${account.TwitterHandle.split('/').pop()}</a>
                 `;
                 directory.appendChild(accountDiv);
             });
@@ -59,13 +78,16 @@
             });
         }
 
+        function updateSearchPlaceholder() {
+            const filterInput = document.getElementById('filterInput');
+            filterInput.placeholder = `Search among ${accounts.length} NextJS starters...`;
+        }
+
         document.getElementById('seeMoreBtn').addEventListener('click', function(e) {
             e.preventDefault();
-            // Implement your "See More" functionality here
             alert('See More functionality to be implemented');
         });
 
-        // Load accounts when the page loads
         loadAccounts();
     </script>
 </body>

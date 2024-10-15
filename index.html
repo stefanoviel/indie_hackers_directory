@@ -92,7 +92,7 @@
         #seeMoreBtn.hidden {
             display: none;
         }
-        #submitForm {
+        #joinCommunity {
             background-color: #111;
             padding: 30px;
             border-radius: 10px;
@@ -102,32 +102,27 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-align: center;
         }
-        #submitForm h3 {
+        
+        #joinCommunity h3 {
             margin-top: 0;
             margin-bottom: 20px;
         }
-        #submitForm input[type="text"],
-        #submitForm input[type="email"],
-        #submitForm input[type="url"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #333;
-            border-radius: 5px;
-            background-color: #222;
-            color: #fff;
-        }
-        #submitForm button {
+        
+        #joinCommunity a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
             background-color: #1DA1F2;
             color: white;
-            border: none;
-            padding: 10px 20px;
+            text-decoration: none;
             border-radius: 5px;
-            cursor: pointer;
+            font-weight: bold;
             transition: background-color 0.3s;
         }
-        #submitForm button:hover {
+        
+        #joinCommunity a:hover {
             background-color: #0c85d0;
         }
         .made-by {
@@ -161,15 +156,10 @@
         
         <a href="#" id="seeMoreBtn">EXPLORE MORE</a>
         
-        <div id="submitForm">
+        <div id="joinCommunity">
             <h3>Join Our Innovative Community</h3>
             <p>Share your journey and connect with fellow creators</p>
-            <form id="contactForm">
-                <input type="email" name="email" placeholder="Your email" required>
-                <input type="text" name="handle" placeholder="Your X handle" required>
-                <input type="url" name="url" placeholder="Your project or portfolio URL" required>
-                <button type="submit">Join the Community →</button>
-            </form>
+            <a href="join.html">Join the Community →</a>
         </div>
         
         <p class="made-by">Curated with ❤️ by @Stefan0Vl</p>
@@ -247,25 +237,6 @@
                 seeMoreBtn.classList.add('hidden');
             }
         }
-
-        // Setup form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            fetch('/submit-form', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Thank you for joining our community!');
-                this.reset();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('There was an error submitting your form. Please try again later.');
-            });
-        });
 
         loadAccounts();
     </script>

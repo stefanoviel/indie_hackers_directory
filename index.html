@@ -26,7 +26,7 @@
             <h2>Discover innovative SaaS founders and solo entrepreneurs to gain </br> new startup ideas and motivation.</h2>
         </header>
         
-        <input type="text" id="filterInput" placeholder="Search among innovative creators...">
+        <div id="tagFilters"></div>
         
         <div id="directory"></div>
         
@@ -45,6 +45,7 @@
     <script>
         let accounts = [];
         let displayedAccounts = 20;
+        let selectedTags = new Set();
 
         function loadAccounts() {
             fetch('indie_list.csv')
@@ -56,8 +57,7 @@
                         return { Name, ImageUrl, TwitterHandle, Gender, Industry, Niche };
                     }).filter(account => account.Name && account.TwitterHandle && account.ImageUrl);
                     renderAccounts(accounts.slice(0, displayedAccounts));
-                    setupFilter();
-                    updateSearchPlaceholder();
+                    setupTagFilters();
                     setupSeeMoreButton();
                 })
                 .catch(error => console.error('Error:', error));
@@ -74,7 +74,7 @@
                     <div class="account-name">${account.Name}</div>
                     <a href="${account.TwitterHandle}" target="_blank" class="account-handle">@${account.TwitterHandle.split('/').pop()}</a>
                     <div class="tags">
-                        ${account.Gender.toLowerCase() === 'female' ? `<span class="tag">${account.Gender}</span>` : ''}
+                        ${account.Gender.toLowerCase() === 'woman' ? `<span class="tag">${account.Gender}</span>` : ''}
                         <span class="tag">${account.Industry}</span>
                         ${account.Niche ? `<span class="tag">${account.Niche}</span>` : ''}
                     </div>
@@ -83,24 +83,49 @@
             });
         }
 
-        function setupFilter() {
-            const filterInput = document.getElementById('filterInput');
-            filterInput.addEventListener('input', function() {
-                const filterValue = this.value.toLowerCase();
-                const filteredAccounts = accounts.filter(account => 
-                    account.Name.toLowerCase().includes(filterValue) ||
-                    account.Industry.toLowerCase().includes(filterValue) ||
-                    (account.Niche && account.Niche.toLowerCase().includes(filterValue)) ||
-                    (account.Gender.toLowerCase() === 'female' && 'female'.includes(filterValue))
-                );
-                renderAccounts(filteredAccounts.slice(0, displayedAccounts));
-                updateSeeMoreButtonVisibility(filteredAccounts.length);
+        function setupTagFilters() {
+            const tagFilters = document.getElementById('tagFilters');
+            const allTags = new Set();
+
+            accounts.forEach(account => {
+                if (account.Gender.toLowerCase() === 'woman') allTags.add('Woman');
+                allTags.add(account.Industry);
+                if (account.Niche) allTags.add(account.Niche);
+            });
+
+            allTags.forEach(tag => {
+                const tagButton = document.createElement('button');
+                tagButton.textContent = tag;
+                tagButton.className = 'tag-filter';
+                tagButton.addEventListener('click', () => toggleTag(tag, tagButton));
+                tagFilters.appendChild(tagButton);
             });
         }
 
-        function updateSearchPlaceholder() {
-            const filterInput = document.getElementById('filterInput');
-            filterInput.placeholder = `Search among ${accounts.length} innovative creators...`;
+        function toggleTag(tag, button) {
+            if (selectedTags.has(tag)) {
+                selectedTags.delete(tag);
+                button.classList.remove('active');
+            } else {
+                selectedTags.add(tag);
+                button.classList.add('active');
+            }
+            filterAccounts();
+        }
+
+        function filterAccounts() {
+            if (selectedTags.size === 0) {
+                renderAccounts(accounts.slice(0, displayedAccounts));
+                updateSeeMoreButtonVisibility(accounts.length);
+            } else {
+                const filteredAccounts = accounts.filter(account => 
+                    (account.Gender.toLowerCase() === 'woman' && selectedTags.has('Woman')) ||
+                    selectedTags.has(account.Industry) ||
+                    (account.Niche && selectedTags.has(account.Niche))
+                );
+                renderAccounts(filteredAccounts.slice(0, displayedAccounts));
+                updateSeeMoreButtonVisibility(filteredAccounts.length);
+            }
         }
 
         function setupSeeMoreButton() {
@@ -108,7 +133,7 @@
             seeMoreBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 displayedAccounts = accounts.length;
-                renderAccounts(accounts);
+                filterAccounts();
                 this.classList.add('hidden');
             });
             updateSeeMoreButtonVisibility(accounts.length);

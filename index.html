@@ -7,142 +7,7 @@
     <meta name="description" content="Discover and connect with innovative indie hackers and solopreneurs on X. Explore curated list of SaaS founders and solo entrepreneurs, find new startup ideas and motivation.">
     <meta name="keywords" content="indie makers, solopreneur, multipreneur, solo entrepreneurs, startup idea, X accounts, indie hacking, self starter, independent creator, saas founders, female founder, Twitter, innovation, entrepreneurship">
     <link rel="icon" href="icon.png" type="image/webp">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #000;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        .container {
-            max-width: 1200px;
-            width: 100%;
-        }
-        header {
-            margin-bottom: 60px;
-        }
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-        h2 {
-            font-size: 1.5em;
-            color: #ccc;
-            margin-bottom: 40px;
-        }
-        #filterInput {
-            width: 100%;
-            max-width: 600px;
-            padding: 15px;
-            font-size: 16px;
-            margin-bottom: 30px;
-            border: 1px solid #333;
-            border-radius: 5px;
-            background-color: #111;
-            color: #fff;
-        }
-        #directory {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-        .account {
-            background-color: #111;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            padding: 20px;
-        }
-        .account img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 15px;
-        }
-        .account-name {
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-        .account-handle {
-            color: #1DA1F2;
-            text-decoration: none;
-        }
-        #seeMoreBtn {
-            display: block;
-            width: 200px;
-            margin: 30px auto;
-            padding: 15px 20px;
-            background-color: #1DA1F2;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        #seeMoreBtn:hover {
-            background-color: #0c85d0;
-        }
-        #seeMoreBtn.hidden {
-            display: none;
-        }
-        #joinCommunity {
-            background-color: #111;
-            padding: 30px;
-            border-radius: 10px;
-            margin: 50px auto;
-            width: 100%;
-            max-width: 500px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        
-        #joinCommunity h3 {
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
-        
-        #joinCommunity a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #1DA1F2;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        
-        #joinCommunity a:hover {
-            background-color: #0c85d0;
-        }
-        .made-by {
-            margin-top: 30px;
-            font-size: 0.9em;
-            color: #ccc;
-        }
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
-            }
-            h2 {
-                font-size: 1.2em;
-            }
-            #directory {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-M5K1LGF3Y1"></script>
@@ -187,8 +52,8 @@
                 .then(data => {
                     const rows = data.split('\n').slice(1);
                     accounts = rows.map(row => {
-                        const [Name, ImageUrl, TwitterHandle] = row.split(',');
-                        return { Name, ImageUrl, TwitterHandle };
+                        const [Name, ImageUrl, TwitterHandle, Gender, Niche] = row.split(',');
+                        return { Name, ImageUrl, TwitterHandle, Gender, Niche };
                     }).filter(account => account.Name && account.TwitterHandle && account.ImageUrl);
                     renderAccounts(accounts.slice(0, displayedAccounts));
                     setupFilter();
@@ -208,6 +73,10 @@
                     <img src="${account.ImageUrl}" alt="${account.Name}">
                     <div class="account-name">${account.Name}</div>
                     <a href="${account.TwitterHandle}" target="_blank" class="account-handle">@${account.TwitterHandle.split('/').pop()}</a>
+                    <div class="tags">
+                        <span class="tag gender-tag">${account.Gender}</span>
+                        <span class="tag niche-tag">${account.Niche}</span>
+                    </div>
                 `;
                 directory.appendChild(accountDiv);
             });

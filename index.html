@@ -52,8 +52,8 @@
                 .then(data => {
                     const rows = data.split('\n').slice(1);
                     accounts = rows.map(row => {
-                        const [Name, ImageUrl, TwitterHandle, Gender, Niche] = row.split(',');
-                        return { Name, ImageUrl, TwitterHandle, Gender, Niche };
+                        const [Name, ImageUrl, TwitterHandle, Gender, Industry, Niche] = row.split(',');
+                        return { Name, ImageUrl, TwitterHandle, Gender, Industry, Niche };
                     }).filter(account => account.Name && account.TwitterHandle && account.ImageUrl);
                     renderAccounts(accounts.slice(0, displayedAccounts));
                     setupFilter();
@@ -74,8 +74,9 @@
                     <div class="account-name">${account.Name}</div>
                     <a href="${account.TwitterHandle}" target="_blank" class="account-handle">@${account.TwitterHandle.split('/').pop()}</a>
                     <div class="tags">
-                        <span class="tag gender-tag">${account.Gender}</span>
-                        <span class="tag niche-tag">${account.Niche}</span>
+                        ${account.Gender.toLowerCase() === 'female' ? `<span class="tag">${account.Gender}</span>` : ''}
+                        <span class="tag">${account.Industry}</span>
+                        ${account.Niche ? `<span class="tag">${account.Niche}</span>` : ''}
                     </div>
                 `;
                 directory.appendChild(accountDiv);
@@ -87,7 +88,10 @@
             filterInput.addEventListener('input', function() {
                 const filterValue = this.value.toLowerCase();
                 const filteredAccounts = accounts.filter(account => 
-                    account.Name.toLowerCase().includes(filterValue)
+                    account.Name.toLowerCase().includes(filterValue) ||
+                    account.Industry.toLowerCase().includes(filterValue) ||
+                    (account.Niche && account.Niche.toLowerCase().includes(filterValue)) ||
+                    (account.Gender.toLowerCase() === 'female' && 'female'.includes(filterValue))
                 );
                 renderAccounts(filteredAccounts.slice(0, displayedAccounts));
                 updateSeeMoreButtonVisibility(filteredAccounts.length);

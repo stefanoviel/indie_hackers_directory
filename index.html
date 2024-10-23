@@ -32,6 +32,36 @@
         
         <a href="#" id="seeMoreBtn">EXPLORE MORE</a>
         
+
+        
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <button class="faq-question">What is an indie hacker?</button>
+                <div class="faq-answer">
+                    <p>An indie hacker is an entrepreneur who creates and runs an independent online business, typically bootstrapping their project without external funding. They focus on building profitable businesses rather than seeking rapid growth or venture capital.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">What does solopreneur mean?</button>
+                <div class="faq-answer">
+                    <p>A solopreneur is an entrepreneur who starts and runs a business on their own, without co-founders or employees. They handle all aspects of the business themselves, from product development to marketing and customer support.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">How do indie hackers make money?</button>
+                <div class="faq-answer">
+                    <p>Indie hackers generate revenue through various means, such as selling digital products (e.g., software, ebooks, courses), offering services, implementing subscription models, or using advertising and affiliate marketing. The focus is on creating sustainable, profitable businesses rather than relying on external funding.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">How can I become a solopreneur?</button>
+                <div class="faq-answer">
+                    <p>To become a solopreneur, start by identifying a problem you can solve or a niche you can serve. Develop your skills, create a minimum viable product or service, and start marketing to your target audience. Focus on building a sustainable business model and be prepared to wear many hats as you handle all aspects of your business.</p>
+                </div>
+            </div>
+        </div>
+
         <div id="joinCommunity">
             <h3>Help Us Grow Our Directory</h3>
             <p>Know an inspiring indie hacker, solopreneur, or creator we missed? Let us know!</p>
@@ -149,6 +179,34 @@
         }
 
         loadAccounts();
+
+        // FAQ Collapsible
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const isActive = question.classList.contains('active');
+                    
+                    // Close all other answers
+                    faqQuestions.forEach(q => {
+                        if (q !== question) {
+                            q.classList.remove('active');
+                            q.nextElementSibling.style.maxHeight = null;
+                        }
+                    });
+                    
+                    // Toggle current answer
+                    question.classList.toggle('active');
+                    if (!isActive) {
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                    } else {
+                        answer.style.maxHeight = null;
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
